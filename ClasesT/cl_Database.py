@@ -1,7 +1,5 @@
-from flask import app
 import pyodbc;
 import datetime;
-import flask;
 from ClasesMN.cl_Cliente import cl_Cliente;
 
 class cl_Database:
@@ -50,7 +48,11 @@ class cl_Database:
         resultado = cursor.fetchone()[0];
         print("Resultado:", resultado);
       else: 
+        for elemento in cursor:
+          print(elemento)
+          
         #RECORRIDO DEL RESULTADO PARA TRABAJAR CON OBJETOS
+        """
         if(nombreSp == "SP_Clientes_SIUD"):
           ls_clientes: list = [];
           for elemento in cursor:
@@ -71,12 +73,33 @@ class cl_Database:
                     c.GetCorreo() + " - " + 
                     c.GetTelefono() + " - " + 
                     c.GetDireccion());
-            
+          """
     except Exception as Error:
       cursor.execute("SELECT @p_resultado;");
       resultado = str(Error);
       print("Resultado:", resultado);
       
+    #CIERRE DE TRANSACCIÓN
+    cursor.execute("COMMIT;");
+    cursor.close();
+    
+  def EjecutarSP_Perso(self, nombreSp: str)-> None:
+
+    #CONSTRUCCIÓN DEL QUERY
+    consulta = f"CALL {nombreSp};";
+
+    #EJECUCIÓN PROCEDURE
+    cursor = self.conexion.cursor();
+    cursor.execute(consulta);
+      
+    filas = cursor.fetchall();
+      
+    if(len(filas) != 0):
+      for elemento in filas:
+        print(elemento);
+    else:
+      print("No se encontraron resultados");
+    
     #CIERRE DE TRANSACCIÓN
     cursor.execute("COMMIT;");
     cursor.close();

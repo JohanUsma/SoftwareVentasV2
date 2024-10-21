@@ -75,79 +75,6 @@ BEGIN
 END $$
 DELIMITER ;
 
--- SP_Productos_SIUD
-DELIMITER $$
-CREATE PROCEDURE SP_Productos_SIUD(
-    IN action_type VARCHAR(10),
-    IN p_ProductoID INT,
-    IN p_Nombre VARCHAR(100),
-    IN p_Precio DECIMAL(10, 2),
-    IN p_Stock INT,
-    OUT p_resultado VARCHAR(255)
-)
-BEGIN
-    DECLARE v_error INT DEFAULT 0;
-    DECLARE v_error_message VARCHAR(255);
-
-    -- MANEJAR EXCEPCIONES
-    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION 
-    BEGIN
-        GET DIAGNOSTICS CONDITION 1 v_error_message = MESSAGE_TEXT;
-        SET p_resultado = CONCAT('Error: ', v_error_message);
-        SET v_error = 1;
-    END;
-
-    -- SELECT
-    IF action_type = 'SELECT' THEN
-        IF p_ProductoID IS NOT NULL THEN
-            SELECT * FROM Productos WHERE ProductoID = p_ProductoID;
-        ELSE
-            SELECT * FROM Productos;
-        END IF;
-
-    -- INSERT
-    ELSEIF action_type = 'INSERT' THEN
-        INSERT INTO Productos (Nombre, Precio, Stock)
-        VALUES (p_Nombre, p_Categoria, p_Precio, p_Stock);
-
-        IF v_error = 0 THEN
-            SET p_resultado = 'Producto ingresado correctamente';
-        END IF;
-    
-    -- UPDATE
-    ELSEIF action_type = 'UPDATE' THEN
-        UPDATE Productos
-        SET Nombre = p_Nombre,
-            Precio = p_Precio,
-            Stock = p_Stock
-        WHERE ProductoID = p_ProductoID;
-
-        IF v_error = 0 THEN
-            IF ROW_COUNT() = 0 THEN
-                SET p_resultado = 'No se encontró el producto para actualizar';
-            ELSE
-                SET p_resultado = 'Producto actualizado correctamente';
-            END IF;
-        END IF;
-
-    -- DELETE
-    ELSEIF action_type = 'DELETE' THEN
-        DELETE FROM Productos WHERE ProductoID = p_ProductoID;
-
-        IF v_error = 0 THEN
-            IF ROW_COUNT() = 0 THEN
-                SET p_resultado = 'No se encontró el producto para eliminar';
-            ELSE
-                SET p_resultado = 'Producto eliminado correctamente';
-            END IF;
-        END IF;
-
-    ELSE
-        SET p_resultado = 'Acción no reconocida';
-    END IF;
-END $$
-DELIMITER ;
-
 -- SP_Productos_SIUD ======================================================================================
 DELIMITER $$
 CREATE PROCEDURE SP_Productos_SIUD(
@@ -162,7 +89,7 @@ BEGIN
     DECLARE v_error INT DEFAULT 0;
     DECLARE v_error_message VARCHAR(255);
 
-    -- MANEJAR EXCEPCIONES
+    -- MANEJAR EXCEPCIONES ======================================================================================
     DECLARE CONTINUE HANDLER FOR SQLEXCEPTION 
     BEGIN
         GET DIAGNOSTICS CONDITION 1 v_error_message = MESSAGE_TEXT;
@@ -181,7 +108,7 @@ BEGIN
     -- INSERT
     ELSEIF action_type = 'INSERT' THEN
         INSERT INTO Productos (Nombre, Precio, Stock)
-        VALUES (p_Nombre, p_Categoria, p_Precio, p_Stock);
+        VALUES (p_Nombre, p_Precio, p_Stock);
 
         IF v_error = 0 THEN
             SET p_resultado = 'Producto ingresado correctamente';
