@@ -2,7 +2,6 @@ class cl_Proveedor:
     
     ProveedorID: int = 0;
     Nombre: str = None;
-    Apellido: str = None;
     Contacto: str = None;
     Telefono: str = None;
     

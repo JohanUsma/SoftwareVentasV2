@@ -13,7 +13,7 @@ BEGIN
         SELECT CONCAT('Error: ', v_error_message) AS ErrorMensaje;
     END;
 
-    SELECT * FROM Productos WHERE Stock < 50;
+    SELECT * FROM Productos WHERE Stock < 25;
 END $$
 DELIMITER ;
 

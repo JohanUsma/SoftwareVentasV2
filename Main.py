@@ -1,11 +1,13 @@
-from ClasesT.cl_Database import cl_Database
+from ClasesT.cl_Database import cl_Database;
+import os;
 
+os.system('cls')
 objDatabase: cl_Database = cl_Database();
 objDatabase.OpenConnectionDB();
 
 print("\n------------CONEXION BASE DE DATOS------------\n")
 
-proceso: str = "Top";
+proceso: str = "Stock";
 
 if(proceso == "Cliente"):
     print("\n------------PROCESOS TABLA CLIENTE------------\n")
@@ -49,8 +51,8 @@ if(proceso == "DetalleVenta"):
     objDatabase.EjecutarSP("SP_DetallesVentas_SIUD", "'INSERT'", "NULL", parametros_detalle_v)
 
     print("\n**Prueba Actualizar DetalleVenta\n")
-    parametros_detalle_v: list = (2, 7, 4, 12700.000)
-    objDatabase.EjecutarSP("SP_DetallesVentas_SIUD", "'UPDATE'", "9", parametros_detalle_v)
+    parametros_detalle_v: list = (3, 1, 2, 12800.000)
+    objDatabase.EjecutarSP("SP_DetallesVentas_SIUD", "'UPDATE'", "7", parametros_detalle_v)
 
     print("\n**Prueba Eliminar DetalleVenta\n")
     objDatabase.EjecutarSP("SP_DetallesVentas_SIUD", "'DELETE'", "10", parametros_detalle_v)

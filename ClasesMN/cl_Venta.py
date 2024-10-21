@@ -7,7 +7,6 @@ class cl_Venta:
     ClienteID: int = None;
     Fecha: datetime = None;
     Total: float = None;
-    Stock: int = None;
     Cliente: cl_Cliente = cl_Cliente();
 
     def GetVentaID(self) -> int: 
@@ -33,12 +32,6 @@ class cl_Venta:
     
     def SetTotal(self, value: float) -> None:
         self.Total = value;
-    
-    def GetStock(self) -> int:
-        return self.Stock;
-    
-    def SetStock(self, value: int) -> None:
-        self.Stock = value;
     
     def GetCliente(self) -> cl_Cliente:
         return self.Cliente;
