@@ -17,7 +17,10 @@ BEGIN
 
     -- SELECT
     IF p_ProveedorID IS NOT NULL THEN
-        SELECT * FROM Proveedores WHERE ProveedorID = p_ProveedorID;
+        SELECT ProveedorID, Nombre,
+        CAST(AES_DECRYPT(Contacto, 'c0ntr4s3n4') AS CHAR(100)) AS Contacto,
+        CAST(AES_DECRYPT(Telefono, 'c0ntr4s3n4') AS CHAR(100)) AS Telefono
+        FROM Proveedores WHERE ProveedorID = p_ProveedorID;
     ELSE
         SELECT * FROM Proveedores;
     END IF;

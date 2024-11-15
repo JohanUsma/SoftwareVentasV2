@@ -17,7 +17,9 @@ BEGIN
 
     -- SELECT
     IF p_VentaID IS NOT NULL THEN
-        SELECT * FROM Ventas WHERE VentaID = p_VentaID;
+        SELECT ClienteID, Fecha,
+         CAST(AES_DECRYPT(Total, 'Cl4v3') AS DECIMAL(10,2)) AS Total
+        FROM Ventas WHERE VentaID = p_VentaID;
     ELSE
         SELECT * FROM Ventas;
     END IF;

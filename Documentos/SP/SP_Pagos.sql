@@ -17,7 +17,9 @@ BEGIN
 
     -- SELECT
     IF p_PagoID IS NOT NULL THEN
-        SELECT * FROM Pagos WHERE PagoID = p_PagoID;
+        SELECT PagoID, VentaID, MetodoPagoID,
+        CAST(AES_DECRYPT(Monto, 'Cl4v3') AS DECIMAL(10,2)) AS Monto
+        FROM Pagos WHERE PagoID = p_PagoID;
     ELSE
         SELECT * FROM Pagos;
     END IF;

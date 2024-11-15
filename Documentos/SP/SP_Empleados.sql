@@ -17,7 +17,10 @@ BEGIN
 
     -- SELECT
     IF p_EmpleadoID IS NOT NULL THEN
-        SELECT * FROM Empleados WHERE EmpleadoID = p_EmpleadoID;
+        SELECT EmpleadoID, Nombre, Apellido,
+        CAST(AES_DECRYPT(Correo, 'P4ssw0rd') AS CHAR(100)) AS Correo,
+        CAST(AES_DECRYPT(Telefono, 'P4ssw0rd') AS CHAR(100)) AS Telefono
+        FROM Empleados WHERE EmpleadoID = p_EmpleadoID;
     ELSE
         SELECT * FROM Empleados;
     END IF;
