@@ -1,0 +1,10 @@
+DELIMITER $$
+
+CREATE TRIGGER encrypt_insert_pagos
+BEFORE INSERT ON Pagos
+FOR EACH ROW
+BEGIN
+    SET NEW.Monto = AES_ENCRYPT(NEW.Monto, 'Cl4v3');
+END $$
+
+DELIMITER ;

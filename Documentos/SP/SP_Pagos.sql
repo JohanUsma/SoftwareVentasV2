@@ -1,6 +1,6 @@
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Listar(
-    IN p_ClienteID INT,
+CREATE PROCEDURE SP_Pagos_Listar(
+    IN p_PagoID INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
@@ -16,26 +16,22 @@ BEGIN
     END;
 
     -- SELECT
-    IF p_ClienteID IS NOT NULL THEN
-        SELECT ClienteID, Nombre, Apellido,
-        CAST(AES_DECRYPT(Correo, 'S3cr3t') AS CHAR(100)) AS Correo,
-        CAST(AES_DECRYPT(Telefono, 'S3cr3t') AS CHAR(100)) AS Telefono,
-        CAST(AES_DECRYPT(Direccion, 'S3cr3t') AS CHAR(200)) AS Direccion
-        FROM Clientes WHERE ClienteID = p_ClienteID;
+    IF p_PagoID IS NOT NULL THEN
+        SELECT PagoID, VentaID, MetodoPagoID,
+        CAST(AES_DECRYPT(Monto, 'Cl4v3') AS DECIMAL(10,2)) AS Monto
+        FROM Pagos WHERE PagoID = p_PagoID;
     ELSE
-        SELECT * FROM Clientes;
+        SELECT * FROM Pagos;
     END IF;
 
 END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Insertar(
-    IN p_Nombre VARCHAR(100),
-    IN p_Apellido VARCHAR(100),
-    IN p_Correo VARCHAR(100),
-    IN p_Direccion VARCHAR(200),
-    IN p_Telefono VARCHAR(15),
+CREATE PROCEDURE SP_Pagos_Insertar(
+    IN p_VentaID INT,
+    IN p_MetodoPagoID INT,
+    IN p_Monto DECIMAL(10, 2),
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
@@ -49,26 +45,24 @@ BEGIN
         SET p_resultado = CONCAT('Error: ', v_error_message);
         SET v_error = 1;
     END;
-    
+
     -- INSERT
-    INSERT INTO Clientes (Nombre, Apellido, Correo, Direccion, Telefono)
-    VALUES (p_Nombre, p_Apellido, p_Correo, p_Direccion, p_Telefono);
+    INSERT INTO Pagos (VentaID, MetodoPagoID, Monto)
+    VALUES (p_VentaID, p_MetodoPagoID, p_Monto);
 
     IF v_error = 0 THEN
-        SET p_resultado = 'Cliente ingresado correctamente';
+        SET p_resultado = 'Pago ingresado correctamente';
     END IF;
 
 END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Actualizar(
-    IN p_ClienteID INT,
-    IN p_Nombre VARCHAR(100),
-    IN p_Apellido VARCHAR(100),
-    IN p_Correo VARCHAR(100),
-    IN p_Direccion VARCHAR(200),
-    IN p_Telefono VARCHAR(15),
+CREATE PROCEDURE SP_Pagos_Actualizar(
+    IN p_PagoID INT,
+    IN p_VentaID INT,
+    IN p_MetodoPagoID INT,
+    IN p_Monto DECIMAL(10, 2),
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
@@ -81,22 +75,20 @@ BEGIN
         GET DIAGNOSTICS CONDITION 1 v_error_message = MESSAGE_TEXT;
         SET p_resultado = CONCAT('Error: ', v_error_message);
         SET v_error = 1;
-    END;
-    
+    END;    
+
     -- UPDATE
-    UPDATE Clientes
-    SET Nombre = p_Nombre,
-        Apellido = p_Apellido,
-        Correo = p_Correo,
-        Direccion = p_Direccion,
-        Telefono = p_Telefono
-    WHERE ClienteID = p_ClienteID;
+    UPDATE Pagos
+    SET VentaID = p_VentaID,
+        MetodoPagoID = p_MetodoPagoID,
+        Monto = p_Monto
+    WHERE PagoID = p_PagoID;
 
     IF v_error = 0 THEN
         IF ROW_COUNT() = 0 THEN
-            SET p_resultado = 'No se encontró el cliente para actualizar';
+            SET p_resultado = 'No se encontró el Pago para actualizar';
         ELSE
-            SET p_resultado = 'Cliente actualizado correctamente';
+            SET p_resultado = 'Pago actualizado correctamente';
         END IF;
     END IF;
 
@@ -104,8 +96,8 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Eliminar(
-    IN p_ClienteID INT,
+CREATE PROCEDURE SP_Pagos_Eliminar(
+    IN p_PagoID INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
@@ -121,13 +113,13 @@ BEGIN
     END;
 
     -- DELETE
-    DELETE FROM Clientes WHERE ClienteID = p_ClienteID;
+    DELETE FROM Pagos WHERE PagoID = p_PagoID;
 
     IF v_error = 0 THEN
         IF ROW_COUNT() = 0 THEN
-            SET p_resultado = 'No se encontró el cliente para eliminar';
+            SET p_resultado = 'No se encontró el Pago para eliminar';
         ELSE
-            SET p_resultado = 'Cliente eliminado correctamente';
+            SET p_resultado = 'Pago eliminado correctamente';
         END IF;
     END IF;
 

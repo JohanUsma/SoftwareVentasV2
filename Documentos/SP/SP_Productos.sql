@@ -1,13 +1,13 @@
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Listar(
-    IN p_ClienteID INT,
+CREATE PROCEDURE SP_Productos_Listar(
+    IN p_ProductoID INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
     DECLARE v_error INT DEFAULT 0;
     DECLARE v_error_message VARCHAR(255);
 
-    -- MANEJAR EXCEPCIONES
+    -- MANEJAR EXCEPCIONES ======================================================================================
     DECLARE CONTINUE HANDLER FOR SQLEXCEPTION 
     BEGIN
         GET DIAGNOSTICS CONDITION 1 v_error_message = MESSAGE_TEXT;
@@ -16,87 +16,77 @@ BEGIN
     END;
 
     -- SELECT
-    IF p_ClienteID IS NOT NULL THEN
-        SELECT ClienteID, Nombre, Apellido,
-        CAST(AES_DECRYPT(Correo, 'S3cr3t') AS CHAR(100)) AS Correo,
-        CAST(AES_DECRYPT(Telefono, 'S3cr3t') AS CHAR(100)) AS Telefono,
-        CAST(AES_DECRYPT(Direccion, 'S3cr3t') AS CHAR(200)) AS Direccion
-        FROM Clientes WHERE ClienteID = p_ClienteID;
+    IF p_ProductoID IS NOT NULL THEN
+        SELECT * FROM Productos WHERE ProductoID = p_ProductoID;
     ELSE
-        SELECT * FROM Clientes;
+        SELECT * FROM Productos;
     END IF;
 
 END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Insertar(
+CREATE PROCEDURE SP_Productos_Insertar(
     IN p_Nombre VARCHAR(100),
-    IN p_Apellido VARCHAR(100),
-    IN p_Correo VARCHAR(100),
-    IN p_Direccion VARCHAR(200),
-    IN p_Telefono VARCHAR(15),
+    IN p_Precio DECIMAL(10, 2),
+    IN p_Stock INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
     DECLARE v_error INT DEFAULT 0;
     DECLARE v_error_message VARCHAR(255);
 
-    -- MANEJAR EXCEPCIONES
+    -- MANEJAR EXCEPCIONES ======================================================================================
     DECLARE CONTINUE HANDLER FOR SQLEXCEPTION 
     BEGIN
         GET DIAGNOSTICS CONDITION 1 v_error_message = MESSAGE_TEXT;
         SET p_resultado = CONCAT('Error: ', v_error_message);
         SET v_error = 1;
     END;
-    
+
     -- INSERT
-    INSERT INTO Clientes (Nombre, Apellido, Correo, Direccion, Telefono)
-    VALUES (p_Nombre, p_Apellido, p_Correo, p_Direccion, p_Telefono);
+    INSERT INTO Productos (Nombre, Precio, Stock)
+    VALUES (p_Nombre, p_Precio, p_Stock);
 
     IF v_error = 0 THEN
-        SET p_resultado = 'Cliente ingresado correctamente';
+        SET p_resultado = 'Producto ingresado correctamente';
     END IF;
 
 END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Actualizar(
-    IN p_ClienteID INT,
+CREATE PROCEDURE SP_Productos_Actualizar(
+    IN p_ProductoID INT,
     IN p_Nombre VARCHAR(100),
-    IN p_Apellido VARCHAR(100),
-    IN p_Correo VARCHAR(100),
-    IN p_Direccion VARCHAR(200),
-    IN p_Telefono VARCHAR(15),
+    IN p_Precio DECIMAL(10, 2),
+    IN p_Stock INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
     DECLARE v_error INT DEFAULT 0;
     DECLARE v_error_message VARCHAR(255);
 
-    -- MANEJAR EXCEPCIONES
+    -- MANEJAR EXCEPCIONES ======================================================================================
     DECLARE CONTINUE HANDLER FOR SQLEXCEPTION 
     BEGIN
         GET DIAGNOSTICS CONDITION 1 v_error_message = MESSAGE_TEXT;
         SET p_resultado = CONCAT('Error: ', v_error_message);
         SET v_error = 1;
     END;
-    
+
     -- UPDATE
-    UPDATE Clientes
+    UPDATE Productos
     SET Nombre = p_Nombre,
-        Apellido = p_Apellido,
-        Correo = p_Correo,
-        Direccion = p_Direccion,
-        Telefono = p_Telefono
-    WHERE ClienteID = p_ClienteID;
+        Precio = p_Precio,
+        Stock = p_Stock
+    WHERE ProductoID = p_ProductoID;
 
     IF v_error = 0 THEN
         IF ROW_COUNT() = 0 THEN
-            SET p_resultado = 'No se encontró el cliente para actualizar';
+            SET p_resultado = 'No se encontró el producto para actualizar';
         ELSE
-            SET p_resultado = 'Cliente actualizado correctamente';
+            SET p_resultado = 'Producto actualizado correctamente';
         END IF;
     END IF;
 
@@ -104,15 +94,15 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Eliminar(
-    IN p_ClienteID INT,
+CREATE PROCEDURE SP_Productos_Eliminar(
+    IN p_ProductoID INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
     DECLARE v_error INT DEFAULT 0;
     DECLARE v_error_message VARCHAR(255);
 
-    -- MANEJAR EXCEPCIONES
+    -- MANEJAR EXCEPCIONES ======================================================================================
     DECLARE CONTINUE HANDLER FOR SQLEXCEPTION 
     BEGIN
         GET DIAGNOSTICS CONDITION 1 v_error_message = MESSAGE_TEXT;
@@ -121,13 +111,13 @@ BEGIN
     END;
 
     -- DELETE
-    DELETE FROM Clientes WHERE ClienteID = p_ClienteID;
+    DELETE FROM Productos WHERE ProductoID = p_ProductoID;
 
     IF v_error = 0 THEN
         IF ROW_COUNT() = 0 THEN
-            SET p_resultado = 'No se encontró el cliente para eliminar';
+            SET p_resultado = 'No se encontró el producto para eliminar';
         ELSE
-            SET p_resultado = 'Cliente eliminado correctamente';
+            SET p_resultado = 'Producto eliminado correctamente';
         END IF;
     END IF;
 

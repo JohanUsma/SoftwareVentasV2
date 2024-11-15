@@ -1,6 +1,6 @@
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Listar(
-    IN p_ClienteID INT,
+CREATE PROCEDURE SP_ProductosDescuentos_Listar(
+    IN p_ProductoDescuentoID INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
@@ -16,26 +16,19 @@ BEGIN
     END;
 
     -- SELECT
-    IF p_ClienteID IS NOT NULL THEN
-        SELECT ClienteID, Nombre, Apellido,
-        CAST(AES_DECRYPT(Correo, 'S3cr3t') AS CHAR(100)) AS Correo,
-        CAST(AES_DECRYPT(Telefono, 'S3cr3t') AS CHAR(100)) AS Telefono,
-        CAST(AES_DECRYPT(Direccion, 'S3cr3t') AS CHAR(200)) AS Direccion
-        FROM Clientes WHERE ClienteID = p_ClienteID;
+    IF p_ProductoDescuentoID IS NOT NULL THEN
+        SELECT * FROM ProductoDescuento WHERE ProductoDescuentoID = p_ProductoDescuentoID;
     ELSE
-        SELECT * FROM Clientes;
+        SELECT * FROM ProductoDescuento;
     END IF;
 
 END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Insertar(
-    IN p_Nombre VARCHAR(100),
-    IN p_Apellido VARCHAR(100),
-    IN p_Correo VARCHAR(100),
-    IN p_Direccion VARCHAR(200),
-    IN p_Telefono VARCHAR(15),
+CREATE PROCEDURE SP_ProductosDescuentos_Insertar(
+    IN p_ProductoID INT,
+    IN p_DescuentoID INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
@@ -49,26 +42,23 @@ BEGIN
         SET p_resultado = CONCAT('Error: ', v_error_message);
         SET v_error = 1;
     END;
-    
+
     -- INSERT
-    INSERT INTO Clientes (Nombre, Apellido, Correo, Direccion, Telefono)
-    VALUES (p_Nombre, p_Apellido, p_Correo, p_Direccion, p_Telefono);
+    INSERT INTO ProductoDescuento (ProductoID, DescuentoID)
+    VALUES (p_ProductoID, p_DescuentoID);
 
     IF v_error = 0 THEN
-        SET p_resultado = 'Cliente ingresado correctamente';
+        SET p_resultado = 'Descuento de Producto ingresado correctamente';
     END IF;
 
 END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Actualizar(
-    IN p_ClienteID INT,
-    IN p_Nombre VARCHAR(100),
-    IN p_Apellido VARCHAR(100),
-    IN p_Correo VARCHAR(100),
-    IN p_Direccion VARCHAR(200),
-    IN p_Telefono VARCHAR(15),
+CREATE PROCEDURE SP_ProductosDescuentos_Actualizar(
+    IN p_ProductoDescuentoID INT,
+    IN p_ProductoID INT,
+    IN p_DescuentoID INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
@@ -81,22 +71,19 @@ BEGIN
         GET DIAGNOSTICS CONDITION 1 v_error_message = MESSAGE_TEXT;
         SET p_resultado = CONCAT('Error: ', v_error_message);
         SET v_error = 1;
-    END;
-    
+    END; 
+
     -- UPDATE
-    UPDATE Clientes
-    SET Nombre = p_Nombre,
-        Apellido = p_Apellido,
-        Correo = p_Correo,
-        Direccion = p_Direccion,
-        Telefono = p_Telefono
-    WHERE ClienteID = p_ClienteID;
+    UPDATE ProductoDescuento
+    SET ProductoID = p_ProductoID,
+        DescuentoID = p_DescuentoID
+    WHERE ProductoDescuentoID = p_ProductoDescuentoID;
 
     IF v_error = 0 THEN
         IF ROW_COUNT() = 0 THEN
-            SET p_resultado = 'No se encontró el cliente para actualizar';
+            SET p_resultado = 'No se encontró el Descuento del Producto para actualizar';
         ELSE
-            SET p_resultado = 'Cliente actualizado correctamente';
+            SET p_resultado = 'Descuento del Producto actualizado correctamente';
         END IF;
     END IF;
 
@@ -104,8 +91,8 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE SP_Clientes_Eliminar(
-    IN p_ClienteID INT,
+CREATE PROCEDURE SP_ProductosDescuentos_Eliminar(
+    IN p_ProductoDescuentoID INT,
     OUT p_resultado VARCHAR(255)
 )
 BEGIN
@@ -121,13 +108,13 @@ BEGIN
     END;
 
     -- DELETE
-    DELETE FROM Clientes WHERE ClienteID = p_ClienteID;
+    DELETE FROM ProductoDescuento WHERE ProductoDescuentoID = p_ProductoDescuentoID;
 
     IF v_error = 0 THEN
         IF ROW_COUNT() = 0 THEN
-            SET p_resultado = 'No se encontró el cliente para eliminar';
+            SET p_resultado = 'No se encontró el Descuento del Producto para eliminar';
         ELSE
-            SET p_resultado = 'Cliente eliminado correctamente';
+            SET p_resultado = 'Descuento del Producto eliminado correctamente';
         END IF;
     END IF;
 
