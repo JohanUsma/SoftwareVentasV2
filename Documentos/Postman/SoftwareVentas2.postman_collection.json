@@ -1,0 +1,368 @@
+{
+	"info": {
+		"_postman_id": "d2698b7c-612f-463f-9e5f-4ceff5f994d9",
+		"name": "SoftwareVentas2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38703906"
+	},
+	"item": [
+		{
+			"name": "Autenticacion",
+			"item": [
+				{
+					"name": "Autenticacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Usuario\" : \"Prueba\",\r\n    \"Contrasena\" : \"1234568\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Autenticacion",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Autenticacion"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Listar_Cliente_by_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Listar/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Listar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_Clientes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_Cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Prueba_API\",\r\n    \"Apellido\" : \"Insertar\",\r\n    \"Correo\" : \"Prueba_API@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 18B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Ana Isabel\",\r\n    \"Apellido\" : \"Gómez Perez\",\r\n    \"Correo\" : \"anaisabelg@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 2 #45-70\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Actualizar/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Actualizar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Descuentos",
+			"item": [
+				{
+					"name": "Listar_Cliente_by_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Listar/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Listar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_Clientes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_Cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Prueba_API\",\r\n    \"Apellido\" : \"Insertar\",\r\n    \"Correo\" : \"Prueba_API@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 18B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Ana Isabel\",\r\n    \"Apellido\" : \"Gómez Perez\",\r\n    \"Correo\" : \"anaisabelg@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 2 #45-70\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Actualizar/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Actualizar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -42,3 +42,75 @@ class cl_Cliente_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
+    
+    def Insertar(self, cliente: cl_Cliente) -> dict:  
+        respuesta = { };
+        try:
+            
+            conexion = pyodbc.connect(cl_Database.strConnection);
+            cursor = conexion.cursor();
+            
+            consulta: str = "{CALL SP_Clientes_Insertar( ";
+            consulta += "'" + cliente.GetNombre() + "', '" + cliente.GetApellido() + "', '" + cliente.GetCorreo() + "',";
+            consulta += "'" + cliente.GetDireccion() + "', '" + cliente.GetTelefono() + "'";
+            consulta += ", @Resultado);}";
+            cursor.execute(consulta);
+            
+            consulta: str = "SELECT @Resultado;";
+            cursor.execute(consulta);
+            respuesta["Resultado"] = str(cursor.fetchone()[0]);
+            cursor.execute("commit;");
+
+            cursor.close();
+            conexion.close();
+            return respuesta;
+        except Exception as ex:
+            respuesta["Error"] = str(ex);
+            return respuesta;
+    
+    def Actualizar(self, cliente: cl_Cliente) -> dict:  
+        respuesta = { };
+        try:
+            
+            conexion = pyodbc.connect(cl_Database.strConnection);
+            cursor = conexion.cursor();
+            
+            consulta: str = "{CALL SP_Clientes_Actualizar( ";
+            consulta += "'" + cliente.GetClienteID() + "', '" + cliente.GetNombre() + "', '" + cliente.GetApellido() + "',";
+            consulta += "'" + cliente.GetCorreo() + "','" + cliente.GetDireccion() + "', '" + cliente.GetTelefono() + "'";
+            consulta += ", @Resultado);}";
+            cursor.execute(consulta);
+            
+            consulta: str = "SELECT @Resultado;";
+            cursor.execute(consulta);
+            respuesta["Resultado"] = str(cursor.fetchone()[0]);
+            cursor.execute("commit;");
+
+            cursor.close();
+            conexion.close();
+            return respuesta;
+        except Exception as ex:
+            respuesta["Error"] = str(ex);
+            return respuesta;
+    
+    def Eliminar(self, id: str) -> dict:  
+        respuesta = { };
+        try:
+            
+            conexion = pyodbc.connect(cl_Database.strConnection);
+            cursor = conexion.cursor();
+            
+            consulta: str = f"CALL SP_Clientes_Eliminar({id}, @Resultado);";
+            cursor.execute(consulta);
+            
+            consulta: str = "SELECT @Resultado;";
+            cursor.execute(consulta);
+            respuesta["Resultado"] = str(cursor.fetchone()[0]);
+            cursor.execute("commit;");
+
+            cursor.close();
+            conexion.close();
+            return respuesta;
+        except Exception as ex:
+            respuesta["Error"] = str(ex);
+            return respuesta;

@@ -1,0 +1,27 @@
+{
+	"id": "348c38f2-2bc5-4906-80cf-a3014fdb1084",
+	"values": [
+		{
+			"key": "url",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "token_otro_usuario",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2024-11-16T23:39:20.852Z",
+	"_postman_exported_using": "Postman/11.19.0"
+}
