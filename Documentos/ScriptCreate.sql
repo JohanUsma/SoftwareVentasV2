@@ -6,9 +6,9 @@ CREATE TABLE Clientes (
     ClienteID INT PRIMARY KEY AUTO_INCREMENT,
     Nombre VARCHAR(100),
     Apellido VARCHAR(100),
-    Correo VARCHAR(100),
-    Telefono VARCHAR(15),
-    Direccion VARCHAR(200)
+    Correo BLOB,
+    Telefono BLOB,
+    Direccion BLOB
 );
 
 CREATE TABLE Productos (
@@ -22,7 +22,7 @@ CREATE TABLE Ventas (
     VentaID INT PRIMARY KEY AUTO_INCREMENT,
     ClienteID INT,
     Fecha DATETIME,
-    Total DECIMAL(10, 2),
+    Total BLOB,
     FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
 );
 
@@ -30,15 +30,15 @@ CREATE TABLE Empleados (
     EmpleadoID INT PRIMARY KEY AUTO_INCREMENT,
     Nombre VARCHAR(100),
     Apellido VARCHAR(100),
-    Correo VARCHAR(100),
-    Telefono VARCHAR(15)
+    Correo BLOB,
+    Telefono BLOB
 );
 
 CREATE TABLE Proveedores (
     ProveedorID INT PRIMARY KEY AUTO_INCREMENT,
     Nombre VARCHAR(100),
-    Contacto VARCHAR(100),
-    Telefono VARCHAR(15)
+    Contacto BLOB,
+    Telefono BLOB
 );
 
 CREATE TABLE DetallesVentas (
@@ -60,7 +60,7 @@ CREATE TABLE Pagos (
     PagoID INT PRIMARY KEY AUTO_INCREMENT,
     VentaID INT,
     MetodoPagoID INT,
-    Monto DECIMAL(10, 2),
+    Monto BLOB,
     FOREIGN KEY (VentaID) REFERENCES Ventas(VentaID),
     FOREIGN KEY (MetodoPagoID) REFERENCES MetodosPago(MetodoPagoID)
 );
