@@ -21,7 +21,9 @@ BEGIN
         CAST(AES_DECRYPT(Monto, 'Cl4v3') AS DECIMAL(10,2)) AS Monto
         FROM Pagos WHERE PagoID = p_PagoID;
     ELSE
-        SELECT * FROM Pagos;
+        SELECT PagoID, VentaID, MetodoPagoID,
+        CAST(AES_DECRYPT(Monto, 'Cl4v3') AS DECIMAL(10,2)) AS Monto
+        FROM Pagos;
     END IF;
 
 END $$

@@ -21,7 +21,9 @@ BEGIN
         CAST(AES_DECRYPT(Total, 'Cl4v3') AS DECIMAL(10,2)) AS Total
         FROM Ventas WHERE VentaID = p_VentaID;
     ELSE
-        SELECT * FROM Ventas;
+        SELECT ClienteID, Fecha,
+        CAST(AES_DECRYPT(Total, 'Cl4v3') AS DECIMAL(10,2)) AS Total
+        FROM Ventas;
     END IF;
 
 END $$

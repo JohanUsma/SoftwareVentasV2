@@ -23,7 +23,11 @@ BEGIN
         CAST(AES_DECRYPT(Direccion, 'S3cr3t') AS CHAR(200)) AS Direccion
         FROM Clientes WHERE ClienteID = p_ClienteID;
     ELSE
-        SELECT * FROM Clientes;
+        SELECT ClienteID, Nombre, Apellido,
+        CAST(AES_DECRYPT(Correo, 'S3cr3t') AS CHAR(100)) AS Correo,
+        CAST(AES_DECRYPT(Telefono, 'S3cr3t') AS CHAR(100)) AS Telefono,
+        CAST(AES_DECRYPT(Direccion, 'S3cr3t') AS CHAR(200)) AS Direccion
+        FROM Clientes;
     END IF;
 
 END $$

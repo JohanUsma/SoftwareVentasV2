@@ -22,7 +22,10 @@ BEGIN
         CAST(AES_DECRYPT(Telefono, 'P4ssw0rd') AS CHAR(100)) AS Telefono
         FROM Empleados WHERE EmpleadoID = p_EmpleadoID;
     ELSE
-        SELECT * FROM Empleados;
+        SELECT EmpleadoID, Nombre, Apellido,
+        CAST(AES_DECRYPT(Correo, 'P4ssw0rd') AS CHAR(100)) AS Correo,
+        CAST(AES_DECRYPT(Telefono, 'P4ssw0rd') AS CHAR(100)) AS Telefono
+        FROM Empleados;
     END IF;
 
 END $$
