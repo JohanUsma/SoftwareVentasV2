@@ -2,7 +2,7 @@ import pyodbc;
 
 class cl_Database:
   strConnection: str = """
-    Driver={MySQL ODBC 9.0 Unicode Driver};
+    Driver={MySQL ODBC 9.1 Unicode Driver};
     Server=localhost;
     Database=sventas_pe;
     PORT=3306;
