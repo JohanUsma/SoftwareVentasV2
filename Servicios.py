@@ -276,7 +276,36 @@ def Insertar_Descuento() -> str:
         respuesta["Error"] = str(ex)
         return flask.jsonify(respuesta), 500
 
+@app.route('/Servicios/Descuento/Actualizar/<id>', methods=["PUT"])
+def Actualizar_Descuento(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
 
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        datos = flask.request.get_json();
+        
+        datos["DescuentoID"] = id
+        
+        aplicacion: cl_Descuento_Aplicacion = cl_Descuento_Aplicacion();
+        return flask.jsonify(aplicacion.Actualizar(datos));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
 
 
 

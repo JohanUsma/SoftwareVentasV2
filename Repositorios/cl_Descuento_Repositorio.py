@@ -64,3 +64,28 @@ class cl_Descuento_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
+   
+    def Actualizar(self, descuento: cl_Descuento) -> dict:  
+        respuesta = { };
+        try:
+            
+            conexion = pyodbc.connect(cl_Database.strConnection);
+            cursor = conexion.cursor();
+            
+            consulta: str = "{CALL SP_Descuentos_Actualizar( ";
+            consulta += "'" + descuento.GetDescuentoID() + "', '" + descuento.GetNombre() + "', '" + descuento.GetDescripcion() + "',";
+            consulta += "'" + descuento.GetPorcentaje() + "'";
+            consulta += ", @Resultado);}";
+            cursor.execute(consulta);
+            
+            consulta: str = "SELECT @Resultado;";
+            cursor.execute(consulta);
+            respuesta["Resultado"] = str(cursor.fetchone()[0]);
+            cursor.execute("commit;");
+
+            cursor.close();
+            conexion.close();
+            return respuesta;
+        except Exception as ex:
+            respuesta["Error"] = str(ex);
+            return respuesta;
