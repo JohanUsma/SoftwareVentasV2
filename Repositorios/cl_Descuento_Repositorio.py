@@ -89,3 +89,25 @@ class cl_Descuento_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
+    
+    def Eliminar(self, id: str) -> dict:  
+        respuesta = { };
+        try:
+            
+            conexion = pyodbc.connect(cl_Database.strConnection);
+            cursor = conexion.cursor();
+            
+            consulta: str = f"CALL SP_Descuentos_Eliminar({id}, @Resultado);";
+            cursor.execute(consulta);
+            
+            consulta: str = "SELECT @Resultado;";
+            cursor.execute(consulta);
+            respuesta["Resultado"] = str(cursor.fetchone()[0]);
+            cursor.execute("commit;");
+
+            cursor.close();
+            conexion.close();
+            return respuesta;
+        except Exception as ex:
+            respuesta["Error"] = str(ex);
+            return respuesta;

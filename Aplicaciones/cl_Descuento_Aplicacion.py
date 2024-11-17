@@ -49,3 +49,6 @@ class cl_Descuento_Aplicacion:
 
 
         return self.respositorio.Actualizar(descuento);
+
+    def Eliminar(self, id: str) -> None:
+        return self.respositorio.Eliminar(id);   
