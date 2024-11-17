@@ -3,6 +3,7 @@ import jwt
 from Utilidades import Convertir;
 from Aplicaciones.cl_Cliente_Aplicacion import cl_Cliente_Aplicacion;
 from Aplicaciones.cl_Descuento_Aplicacion import cl_Descuento_Aplicacion;
+from Aplicaciones.cl_DetalleVenta_Aplicacion import cl_DetalleVenta_Aplicacion
 
 key = "KJhisdy8787798udfsd56f4s5d4fsdf";
 dicCredenciales = {"Usuario": "Prueba", "Contrasena": "1234568"}
