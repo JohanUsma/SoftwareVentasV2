@@ -10,3 +10,22 @@ class cl_Descuento_Aplicacion:
 
     def Listar(self, id: str) -> None:
         return self.respositorio.Listar(id);
+   
+
+    def Insertar(self, datos: dict) -> None:
+        respuesta: dict = { };
+
+        if(not "Nombre" in datos.keys() or 
+           not "Descripcion" in datos.keys() or 
+           not "Porcentaje" in datos.keys()): 
+            
+            respuesta["Error"] = "Falta informacion";
+            return respuesta;
+        
+        descuento: cl_Descuento = cl_Descuento();
+        descuento.SetNombre(datos["Nombre"]);
+        descuento.SetDescripcion(datos["Descripcion"]);
+        descuento.SetPorcentaje(datos["Porcentaje"]);
+
+
+        return self.respositorio.Insertar(descuento);

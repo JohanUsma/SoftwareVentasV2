@@ -26,12 +26,12 @@ class cl_Descuento_Repositorio:
             contador = 0;
             for elemento in cursor:
                 #LLENAR LISTA DE CLIENTES
-                desccuento: cl_Descuento = cl_Descuento();
-                desccuento.SetDescuentoID(elemento[0]);
-                desccuento.SetNombre(elemento[1]);
-                desccuento.SetDescripcion(elemento[2]);
-                desccuento.SetPorcentaje(elemento[3]);               
-                respuesta[str(contador)] = desccuento.__dict__;
+                descuento: cl_Descuento = cl_Descuento();
+                descuento.SetDescuentoID(elemento[0]);
+                descuento.SetNombre(elemento[1]);
+                descuento.SetDescripcion(elemento[2]);
+                descuento.SetPorcentaje(elemento[3]);               
+                respuesta[str(contador)] = descuento.__dict__;
                 contador = contador + 1;
                 
             cursor.close();
@@ -41,4 +41,26 @@ class cl_Descuento_Repositorio:
             respuesta["Error"] = str(ex);
             return respuesta;
     
-    
+    def Insertar(self, descuento: cl_Descuento) -> dict:  
+        respuesta = { };
+        try:
+            
+            conexion = pyodbc.connect(cl_Database.strConnection);
+            cursor = conexion.cursor();
+            
+            consulta: str = "{CALL SP_Descuentos_Insertar( ";
+            consulta += "'" + descuento.GetNombre() + "', '" + descuento.GetDescripcion() + "', " + descuento.GetPorcentaje();
+            consulta += ", @Resultado);}";
+            cursor.execute(consulta);
+            
+            consulta: str = "SELECT @Resultado;";
+            cursor.execute(consulta);
+            respuesta["Resultado"] = str(cursor.fetchone()[0]);
+            cursor.execute("commit;");
+
+            cursor.close();
+            conexion.close();
+            return respuesta;
+        except Exception as ex:
+            respuesta["Error"] = str(ex);
+            return respuesta;
