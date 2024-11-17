@@ -9,12 +9,12 @@ from Utilidades import Convertir;
 from Aplicaciones.cl_Cliente_Aplicacion import cl_Cliente_Aplicacion;
 from Aplicaciones.cl_DetalleVenta_Aplicacion import cl_DetalleVenta_Aplicacion;
 
-
 key = "KJhisdy8787798udfsd56f4s5d4fsdf";
 dicCredenciales = {"Usuario": "Prueba", "Contrasena": "1234568"}
 
 print(__name__);
 app = flask.Flask(__name__);
+
 
 @app.route('/Servicios/Autenticacion', methods=["POST"])
 def Autenticacion() -> str :
