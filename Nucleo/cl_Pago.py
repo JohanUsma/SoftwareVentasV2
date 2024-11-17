@@ -1,5 +1,5 @@
-from ClasesMN.cl_Venta import cl_Venta
-from ClasesMN.cl_MetodoPago import cl_MetodoPago
+from Nucleo.cl_Venta import cl_Venta
+from Nucleo.cl_MetodoPago import cl_MetodoPago
 
 class cl_Pago:
     
