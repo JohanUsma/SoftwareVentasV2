@@ -37,3 +37,31 @@ class cl_Venta_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
+
+    def Insertar(self, venta: cl_Venta) -> dict:  
+        respuesta = { };
+        try:
+            
+            conexion = pyodbc.connect(cl_Database.strConnection);
+            cursor = conexion.cursor();
+            
+            consulta: str = "{CALL SP_Ventas_Insertar( ";
+            consulta += "" + str(venta.GetVentaID()) + ", " + str(venta.GetClienteID())+ ", " + str(venta.GetFecha()) + ", ";
+            consulta += "" + str(venta.GetTotal()) + ", @Resultado);}";
+            # Actualizando la consulta para no incluir el VentaID
+            #consulta += f"'{venta.GetClienteID()}', '{venta.GetFecha()}',"
+            #consulta += f"'{venta.GetTotal()}'"
+            consulta += ", @Resultado);}";
+            cursor.execute(consulta);
+            
+            consulta: str = "SELECT @Resultado;";
+            cursor.execute(consulta);
+            respuesta["Resultado"] = str(cursor.fetchone()[0]);
+            cursor.execute("commit;");
+
+            cursor.close();
+            conexion.close();
+            return respuesta;
+        except Exception as ex:
+            respuesta["Error"] = str(ex);
+            return respuesta;
