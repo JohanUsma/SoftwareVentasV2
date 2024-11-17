@@ -1,6 +1,4 @@
-from Nucleo.cl_Cliente import cl_Cliente;
 from Nucleo.cl_DetalleVenta import cl_DetalleVenta;
-from Repositorios.cl_Cliente_Repositorio import cl_Cliente_Repositorio;
 from Repositorios.cl_DetalleVenta_Repositorio import cl_DetalleVenta_Repositorio;
 
 class cl_DetalleVenta_Aplicacion:
