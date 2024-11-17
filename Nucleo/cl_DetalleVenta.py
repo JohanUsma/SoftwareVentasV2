@@ -1,5 +1,5 @@
-from ClasesMN.cl_Venta import cl_Venta
-from ClasesMN.cl_Producto import cl_Producto
+from Nucleo.cl_Venta import cl_Venta
+from Nucleo.cl_Producto import cl_Producto
 
 class cl_DetalleVenta:
     

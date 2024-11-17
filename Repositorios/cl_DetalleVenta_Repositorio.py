@@ -1,9 +1,8 @@
 import pyodbc;
 from Utilidades.cl_Database import cl_Database; 
-from Nucleo.cl_Cliente import cl_Cliente;
+from Nucleo.cl_DetalleVenta import cl_DetalleVenta;
 
-
-class cl_Cliente_Repositorio:
+class cl_DetalleVenta_Repositorio:
     
     def Listar(self, id: str) -> dict:  
         respuesta = { };
@@ -12,9 +11,9 @@ class cl_Cliente_Repositorio:
             conexion = pyodbc.connect(cl_Database.strConnection);
             
             if(not id):
-                consulta: str = f"CALL SP_Clientes_Listar(NULL, @p_resultado);";
+                consulta: str = f"CALL SP_DetallesVentas_Listar(NULL, @p_resultado);";
             else: 
-                consulta: str = f"CALL SP_Clientes_Listar({id}, @p_resultado);";
+                consulta: str = f"CALL SP_DetallesVentas_Listar({id}, @p_resultado);";
             
             cursor = conexion.cursor();
             cursor.execute(consulta);
@@ -23,14 +22,13 @@ class cl_Cliente_Repositorio:
             contador = 0;
             for elemento in cursor:
                 #LLENAR LISTA DE CLIENTES
-                cliente: cl_Cliente = cl_Cliente();
-                cliente.SetClienteID(elemento[0]);
-                cliente.SetNombre(elemento[1]);
-                cliente.SetApellido(elemento[2]);
-                cliente.SetCorreo(elemento[3]);
-                cliente.SetTelefono(elemento[4]);
-                cliente.SetDireccion(elemento[5]);
-                respuesta[str(contador)] = cliente.__dict__;
+                detalleVenta: cl_DetalleVenta = cl_DetalleVenta();
+                detalleVenta.SetDetalleVentaID(elemento[0]);
+                detalleVenta.SetVentaID(elemento[1]);
+                detalleVenta.SetProductoID(elemento[2]);
+                detalleVenta.SetCantidad(elemento[3]);
+                detalleVenta.SetPrecioUnitario(elemento[4]);
+                respuesta[str(contador)] = detalleVenta.__dict__;
                 contador = contador + 1;
                 
             cursor.close();
@@ -40,17 +38,16 @@ class cl_Cliente_Repositorio:
             respuesta["Error"] = str(ex);
             return respuesta;
     
-    def Insertar(self, cliente: cl_Cliente) -> dict:  
+    def Insertar(self, detalleVenta: cl_DetalleVenta) -> dict:  
         respuesta = { };
         try:
             
             conexion = pyodbc.connect(cl_Database.strConnection);
             cursor = conexion.cursor();
             
-            consulta: str = "{CALL SP_Clientes_Insertar( ";
-            consulta += "'" + cliente.GetNombre() + "', '" + cliente.GetApellido() + "', '" + cliente.GetCorreo() + "',";
-            consulta += "'" + cliente.GetDireccion() + "', '" + cliente.GetTelefono() + "'";
-            consulta += ", @Resultado);}";
+            consulta: str = "{CALL SP_DetallesVentas_Insertar( ";
+            consulta += "" + str(detalleVenta.GetVentaID()) + ", " + str(detalleVenta.GetProductoID())+ ", " + str(detalleVenta.GetCantidad()) + ", ";
+            consulta += "" + str(detalleVenta.GetPrecioUnitario()) + ", @Resultado);}";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";
@@ -65,17 +62,16 @@ class cl_Cliente_Repositorio:
             respuesta["Error"] = str(ex);
             return respuesta;
     
-    def Actualizar(self, cliente: cl_Cliente) -> dict:  
+    def Actualizar(self, detalleVenta: cl_DetalleVenta) -> dict:  
         respuesta = { };
         try:
             
             conexion = pyodbc.connect(cl_Database.strConnection);
             cursor = conexion.cursor();
             
-            consulta: str = "{CALL SP_Clientes_Actualizar( ";
-            consulta += "'" + cliente.GetClienteID() + "', '" + cliente.GetNombre() + "', '" + cliente.GetApellido() + "',";
-            consulta += "'" + cliente.GetCorreo() + "','" + cliente.GetDireccion() + "', '" + cliente.GetTelefono() + "'";
-            consulta += ", @Resultado);}";
+            consulta: str = "{CALL SP_DetallesVentas_Actualizar( ";
+            consulta += "" + str(detalleVenta.GetDetalleVentaID()) + ", " + str(detalleVenta.GetVentaID()) + ", " + str(detalleVenta.GetProductoID()) + ", ";
+            consulta += "" + str(detalleVenta.GetCantidad()) + ", " + str(detalleVenta.GetPrecioUnitario()) + ", @Resultado);}";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";
@@ -97,7 +93,7 @@ class cl_Cliente_Repositorio:
             conexion = pyodbc.connect(cl_Database.strConnection);
             cursor = conexion.cursor();
             
-            consulta: str = f"CALL SP_Clientes_Eliminar({id}, @Resultado);";
+            consulta: str = f"CALL SP_DetallesVentas_Eliminar({id}, @Resultado);";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";

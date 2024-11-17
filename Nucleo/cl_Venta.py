@@ -1,5 +1,5 @@
 import datetime; 
-from ClasesMN.cl_Cliente import cl_Cliente
+from Nucleo.cl_Cliente import cl_Cliente
 
 class cl_Venta:
     

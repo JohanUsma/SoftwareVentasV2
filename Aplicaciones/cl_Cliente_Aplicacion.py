@@ -1,5 +1,3 @@
-import datetime;
-import decimal;
 from Nucleo.cl_Cliente import cl_Cliente;
 from Repositorios.cl_Cliente_Repositorio import cl_Cliente_Repositorio;
 

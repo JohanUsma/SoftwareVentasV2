@@ -1,5 +1,5 @@
-from ClasesMN.cl_Producto import cl_Producto
-from ClasesMN.cl_Descuento import cl_Descuento
+from Nucleo.cl_Producto import cl_Producto
+from Nucleo.cl_Descuento import cl_Descuento
 
 class cl_ProductoDescuento:
     
