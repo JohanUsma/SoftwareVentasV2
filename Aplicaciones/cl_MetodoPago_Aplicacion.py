@@ -1,5 +1,3 @@
-from Nucleo.cl_Cliente import cl_Cliente;
-from Repositorios.cl_Cliente_Repositorio import cl_Cliente_Repositorio;
 from Nucleo.cl_MetodoPago import cl_MetodoPago;
 from Repositorios.cl_MetodoPago_Repositorio import cl_MetodoPago_Repositorio;
 
