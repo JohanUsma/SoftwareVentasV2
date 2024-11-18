@@ -31,26 +31,26 @@ class cl_Empleado_Aplicacion:
 
 
     def Actualizar(self, datos: dict) -> None:
-            respuesta: dict = { };
+        respuesta: dict = { };
 
-            if(not "EmpleadoID" in datos.keys() or
+        if(not "EmpleadoID" in datos.keys() or
             not "Nombre" in datos.keys() or 
             not "Apellido" in datos.keys() or 
             not "Correo" in datos.keys() or 
             not "Telefono" in datos.keys()): 
                 
-                respuesta["Error"] = "Falta informacion";
-                return respuesta;
+            respuesta["Error"] = "Falta informacion";
+            return respuesta;
             
-            empleado: cl_Empleado = cl_Empleado();
-            empleado.SetEmpleadoID(datos["EmpleadoID"]);
-            empleado.SetNombre(datos["Nombre"]);
-            empleado.SetApellido(datos["Apellido"]);
-            empleado.SetCorreo(datos["Correo"]);
-            empleado.SetTelefono(datos["Telefono"]);
+        empleado: cl_Empleado = cl_Empleado();
+        empleado.SetEmpleadoID(datos["EmpleadoID"]);
+        empleado.SetNombre(datos["Nombre"]);
+        empleado.SetApellido(datos["Apellido"]);
+        empleado.SetCorreo(datos["Correo"]);
+        empleado.SetTelefono(datos["Telefono"]);
             
-            return self.respositorio.Actualizar(empleado);
+        return self.respositorio.Actualizar(empleado);
 
 
     def Eliminar(self, id: str) -> None:
-            return self.respositorio.Eliminar(id);
+        return self.respositorio.Eliminar(id);

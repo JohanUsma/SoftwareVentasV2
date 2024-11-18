@@ -1,12 +1,8 @@
-import json
 import pyodbc;
-import datetime;
-import jsonpickle;
 from Utilidades.cl_Database import cl_Database; 
-from Nucleo.cl_Venta import cl_Venta;
+from Nucleo.cl_ProductoDescuento import cl_ProductoDescuento;
 
-
-class cl_Venta_Repositorio:
+class cl_ProductoDescuento_Repositorio:
     
     def Listar(self, id: str) -> dict:  
         respuesta = { };
@@ -15,9 +11,9 @@ class cl_Venta_Repositorio:
             conexion = pyodbc.connect(cl_Database.strConnection);
             
             if(not id):
-                consulta: str = f"CALL SP_Ventas_Listar(NULL, @p_resultado);";
+                consulta: str = f"CALL SP_ProductosDescuentos_Listar(NULL, @p_resultado);";
             else: 
-                consulta: str = f"CALL SP_Ventas_Listar({id}, @p_resultado);";
+                consulta: str = f"CALL SP_ProductosDescuentos_Listar({id}, @p_resultado);";
             
             cursor = conexion.cursor();
             cursor.execute(consulta);
@@ -25,13 +21,12 @@ class cl_Venta_Repositorio:
             respuesta: dict = { };
             contador = 0;
             for elemento in cursor:
-                #LLENAR LISTA DE CLIENTES
-                venta: cl_Venta = cl_Venta();
-                venta.SetVentaID(elemento[0]);
-                venta.SetClienteID(elemento[1]);
-                venta.SetFecha(elemento[2]);
-                venta.SetTotal(elemento[3]);
-                respuesta[str(contador)] = venta.__dict__;
+                
+                productoDescuento: cl_ProductoDescuento = cl_ProductoDescuento();
+                productoDescuento.SetProductoDescuentoID(elemento[0]);
+                productoDescuento.SetProductoID(elemento[1]);
+                productoDescuento.SetDescuentoID(elemento[2]);
+                respuesta[str(contador)] = productoDescuento.__dict__;
                 contador = contador + 1;
                 
             cursor.close();
@@ -40,17 +35,16 @@ class cl_Venta_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
-
-    def Insertar(self, venta: cl_Venta) -> dict:  
+    
+    def Insertar(self, productoDescuento: cl_ProductoDescuento) -> dict:  
         respuesta = { };
         try:
             
             conexion = pyodbc.connect(cl_Database.strConnection);
             cursor = conexion.cursor();
             
-            consulta: str = "{CALL SP_Ventas_Insertar( ";
-            consulta += "" + str(venta.GetClienteID())+ ", '" + str(venta.GetFecha()) + "', ";
-            consulta += "" + str(venta.GetTotal())  + ", @Resultado);}";
+            consulta: str = "{CALL SP_ProductosDescuentos_Insertar( ";
+            consulta += "" + str(productoDescuento.GetProductoID()) + ", " + str(productoDescuento.GetDescuentoID()) + ", @Resultado);}";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";
@@ -64,18 +58,17 @@ class cl_Venta_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
-
-    def Actualizar(self, venta: cl_Venta) -> dict:  
+    
+    def Actualizar(self, productoDescuento: cl_ProductoDescuento) -> dict:  
         respuesta = { };
         try:
             
             conexion = pyodbc.connect(cl_Database.strConnection);
             cursor = conexion.cursor();
             
-            consulta: str = "{CALL SP_Ventas_Actualizar( ";
-            consulta += "" + str(venta.GetVentaID()) + ", " + str(venta.GetClienteID())+ ", '" + str(venta.GetFecha()) + "', ";
-            consulta += "" + str(venta.GetTotal())  + ", @Resultado);}";
-            #consulta += ", @Resultado);}";
+            consulta: str = "{CALL SP_ProductosDescuentos_Actualizar( ";
+            consulta += "" + str(productoDescuento.GetProductoDescuentoID()) + ", " + str(productoDescuento.GetProductoID()) + ", ";
+            consulta += "" + str(productoDescuento.GetDescuentoID()) + ", @Resultado);}";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";
@@ -89,7 +82,7 @@ class cl_Venta_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
-
+    
     def Eliminar(self, id: str) -> dict:  
         respuesta = { };
         try:
@@ -97,7 +90,7 @@ class cl_Venta_Repositorio:
             conexion = pyodbc.connect(cl_Database.strConnection);
             cursor = conexion.cursor();
             
-            consulta: str = f"CALL SP_Ventas_Eliminar({id}, @Resultado);";
+            consulta: str = f"CALL SP_ProductosDescuentos_Eliminar({id}, @Resultado);";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";

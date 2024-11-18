@@ -1,12 +1,9 @@
-import json
 import pyodbc;
-import datetime;
-import jsonpickle;
 from Utilidades.cl_Database import cl_Database; 
-from Nucleo.cl_Venta import cl_Venta;
+from Nucleo.cl_Pago import cl_Pago;
 
 
-class cl_Venta_Repositorio:
+class cl_Pago_Repositorio:
     
     def Listar(self, id: str) -> dict:  
         respuesta = { };
@@ -15,9 +12,9 @@ class cl_Venta_Repositorio:
             conexion = pyodbc.connect(cl_Database.strConnection);
             
             if(not id):
-                consulta: str = f"CALL SP_Ventas_Listar(NULL, @p_resultado);";
+                consulta: str = f"CALL SP_Pagos_Listar(NULL, @p_resultado);";
             else: 
-                consulta: str = f"CALL SP_Ventas_Listar({id}, @p_resultado);";
+                consulta: str = f"CALL SP_Pagos_Listar({id}, @p_resultado);";
             
             cursor = conexion.cursor();
             cursor.execute(consulta);
@@ -26,12 +23,12 @@ class cl_Venta_Repositorio:
             contador = 0;
             for elemento in cursor:
                 #LLENAR LISTA DE CLIENTES
-                venta: cl_Venta = cl_Venta();
-                venta.SetVentaID(elemento[0]);
-                venta.SetClienteID(elemento[1]);
-                venta.SetFecha(elemento[2]);
-                venta.SetTotal(elemento[3]);
-                respuesta[str(contador)] = venta.__dict__;
+                pago: cl_Pago = cl_Pago();
+                pago.SetPagoID(elemento[0]);
+                pago.SetVentaID(elemento[1]);
+                pago.SetMetodoPagoID(elemento[2]);
+                pago.SetMonto(elemento[3]);
+                respuesta[str(contador)] = pago.__dict__;
                 contador = contador + 1;
                 
             cursor.close();
@@ -40,17 +37,16 @@ class cl_Venta_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
-
-    def Insertar(self, venta: cl_Venta) -> dict:  
+    
+    def Insertar(self, pago: cl_Pago) -> dict:  
         respuesta = { };
         try:
             
             conexion = pyodbc.connect(cl_Database.strConnection);
             cursor = conexion.cursor();
             
-            consulta: str = "{CALL SP_Ventas_Insertar( ";
-            consulta += "" + str(venta.GetClienteID())+ ", '" + str(venta.GetFecha()) + "', ";
-            consulta += "" + str(venta.GetTotal())  + ", @Resultado);}";
+            consulta: str = "{CALL SP_Pagos_Insertar( ";
+            consulta += "" + str(pago.GetVentaID()) + ", " + str(pago.GetMetodoPagoID()) + ", " + str(pago.GetMonto()) + ", @Resultado);}";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";
@@ -64,18 +60,17 @@ class cl_Venta_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
-
-    def Actualizar(self, venta: cl_Venta) -> dict:  
+    
+    def Actualizar(self, pago: cl_Pago) -> dict:  
         respuesta = { };
         try:
             
             conexion = pyodbc.connect(cl_Database.strConnection);
             cursor = conexion.cursor();
             
-            consulta: str = "{CALL SP_Ventas_Actualizar( ";
-            consulta += "" + str(venta.GetVentaID()) + ", " + str(venta.GetClienteID())+ ", '" + str(venta.GetFecha()) + "', ";
-            consulta += "" + str(venta.GetTotal())  + ", @Resultado);}";
-            #consulta += ", @Resultado);}";
+            consulta: str = "{CALL SP_Pagos_Actualizar( ";
+            consulta += "" + str(pago.GetPagoID()) + ", " + str(pago.GetVentaID()) + ", " + str(pago.GetMetodoPagoID()) + ", ";
+            consulta += "" + str(pago.GetMonto()) + ", @Resultado);}";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";
@@ -89,7 +84,7 @@ class cl_Venta_Repositorio:
         except Exception as ex:
             respuesta["Error"] = str(ex);
             return respuesta;
-
+    
     def Eliminar(self, id: str) -> dict:  
         respuesta = { };
         try:
@@ -97,7 +92,7 @@ class cl_Venta_Repositorio:
             conexion = pyodbc.connect(cl_Database.strConnection);
             cursor = conexion.cursor();
             
-            consulta: str = f"CALL SP_Ventas_Eliminar({id}, @Resultado);";
+            consulta: str = f"CALL SP_Pagos_Eliminar({id}, @Resultado);";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";
