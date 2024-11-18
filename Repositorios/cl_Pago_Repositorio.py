@@ -2,7 +2,6 @@ import pyodbc;
 from Utilidades.cl_Database import cl_Database; 
 from Nucleo.cl_Pago import cl_Pago;
 
-
 class cl_Pago_Repositorio:
     
     def Listar(self, id: str) -> dict:  
@@ -22,7 +21,7 @@ class cl_Pago_Repositorio:
             respuesta: dict = { };
             contador = 0;
             for elemento in cursor:
-                #LLENAR LISTA DE CLIENTES
+                
                 pago: cl_Pago = cl_Pago();
                 pago.SetPagoID(elemento[0]);
                 pago.SetVentaID(elemento[1]);

@@ -1,6 +1,5 @@
 import pyodbc;
 from Utilidades.cl_Database import cl_Database; 
-from Nucleo.cl_Empleado import cl_Empleado;
 from Nucleo.cl_Proveedor import cl_Proveedor;
 
 class cl_Proveedor_Repositorio:
@@ -22,7 +21,7 @@ class cl_Proveedor_Repositorio:
             respuesta: dict = { };
             contador = 0;
             for elemento in cursor:
-                #LLENAR LISTA DE Proveedores
+                
                 proveedor: cl_Proveedor = cl_Proveedor();
                 proveedor.SetProveedorID(elemento[0]);
                 proveedor.SetNombre(elemento[1]);

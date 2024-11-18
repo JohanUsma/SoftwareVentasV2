@@ -1,5 +1,3 @@
-import datetime;
-import decimal;
 from Nucleo.cl_Descuento import cl_Descuento;
 from Repositorios.cl_Descuento_Repositorio import cl_Descuento_Repositorio;
 
@@ -11,7 +9,6 @@ class cl_Descuento_Aplicacion:
     def Listar(self, id: str) -> None:
         return self.respositorio.Listar(id);
    
-
     def Insertar(self, datos: dict) -> None:
         respuesta: dict = { };
 

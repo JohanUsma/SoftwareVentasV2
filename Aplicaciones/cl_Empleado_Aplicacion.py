@@ -29,7 +29,6 @@ class cl_Empleado_Aplicacion:
 
         return self.respositorio.Insertar(empleado);
 
-
     def Actualizar(self, datos: dict) -> None:
         respuesta: dict = { };
 
@@ -50,7 +49,6 @@ class cl_Empleado_Aplicacion:
         empleado.SetTelefono(datos["Telefono"]);
             
         return self.respositorio.Actualizar(empleado);
-
 
     def Eliminar(self, id: str) -> None:
         return self.respositorio.Eliminar(id);

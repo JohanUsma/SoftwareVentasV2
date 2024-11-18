@@ -21,7 +21,7 @@ class cl_DetalleVenta_Repositorio:
             respuesta: dict = { };
             contador = 0;
             for elemento in cursor:
-                #LLENAR LISTA DE CLIENTES
+                
                 detalleVenta: cl_DetalleVenta = cl_DetalleVenta();
                 detalleVenta.SetDetalleVentaID(elemento[0]);
                 detalleVenta.SetVentaID(elemento[1]);

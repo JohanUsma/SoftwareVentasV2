@@ -2,7 +2,6 @@ import pyodbc;
 from Utilidades.cl_Database import cl_Database; 
 from Nucleo.cl_Empleado import cl_Empleado;
 
-
 class cl_Empleado_Repositorio:
     
     def Listar(self, id: str) -> dict:  
@@ -22,7 +21,7 @@ class cl_Empleado_Repositorio:
             respuesta: dict = { };
             contador = 0;
             for elemento in cursor:
-                #LLENAR LISTA DE CLIENTES
+                
                 empleado: cl_Empleado = cl_Empleado();
                 empleado.SetEmpleadoID(elemento[0]);
                 empleado.SetNombre(elemento[1]);

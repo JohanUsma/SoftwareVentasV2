@@ -2,7 +2,6 @@ import pyodbc;
 from Utilidades.cl_Database import cl_Database; 
 from Nucleo.cl_Cliente import cl_Cliente;
 
-
 class cl_Cliente_Repositorio:
     
     def Listar(self, id: str) -> dict:  

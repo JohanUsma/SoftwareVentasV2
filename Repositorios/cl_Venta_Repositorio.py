@@ -1,10 +1,6 @@
-import json
 import pyodbc;
-import datetime;
-import jsonpickle;
 from Utilidades.cl_Database import cl_Database; 
 from Nucleo.cl_Venta import cl_Venta;
-
 
 class cl_Venta_Repositorio:
     
@@ -25,7 +21,7 @@ class cl_Venta_Repositorio:
             respuesta: dict = { };
             contador = 0;
             for elemento in cursor:
-                #LLENAR LISTA DE CLIENTES
+                
                 venta: cl_Venta = cl_Venta();
                 venta.SetVentaID(elemento[0]);
                 venta.SetClienteID(elemento[1]);
@@ -75,7 +71,6 @@ class cl_Venta_Repositorio:
             consulta: str = "{CALL SP_Ventas_Actualizar( ";
             consulta += "" + str(venta.GetVentaID()) + ", " + str(venta.GetClienteID())+ ", '" + str(venta.GetFecha()) + "', ";
             consulta += "" + str(venta.GetTotal())  + ", @Resultado);}";
-            #consulta += ", @Resultado);}";
             cursor.execute(consulta);
             
             consulta: str = "SELECT @Resultado;";

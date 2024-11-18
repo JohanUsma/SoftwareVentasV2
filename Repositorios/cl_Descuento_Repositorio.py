@@ -1,10 +1,6 @@
-import json
 import pyodbc;
-import datetime;
-import jsonpickle;
 from Utilidades.cl_Database import cl_Database; 
 from Nucleo.cl_Descuento import cl_Descuento;
-
 
 class cl_Descuento_Repositorio:
     
@@ -25,7 +21,7 @@ class cl_Descuento_Repositorio:
             respuesta: dict = { };
             contador = 0;
             for elemento in cursor:
-                #LLENAR LISTA DE CLIENTES
+                
                 descuento: cl_Descuento = cl_Descuento();
                 descuento.SetDescuentoID(elemento[0]);
                 descuento.SetNombre(elemento[1]);

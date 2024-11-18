@@ -6,7 +6,10 @@ from Aplicaciones.cl_DetalleVenta_Aplicacion import cl_DetalleVenta_Aplicacion
 from Aplicaciones.cl_Empleado_Aplicacion import cl_Empleado_Aplicacion
 from Aplicaciones.cl_MetodoPago_Aplicacion import cl_MetodoPago_Aplicacion
 from Aplicaciones.cl_Pago_Aplicacion import cl_Pago_Aplicacion
+from Aplicaciones.cl_Producto_Aplicacion import cl_Producto_Aplicacion
 from Aplicaciones.cl_ProductoDescuento_Aplicacion import cl_ProductoDescuento_Aplicacion
+from Aplicaciones.cl_Proveedor_Aplicacion import cl_Proveedor_Aplicacion
+from Aplicaciones.cl_Venta_Aplicacion import cl_Venta_Aplicacion
 
 key = "KJhisdy8787798udfsd56f4s5d4fsdf";
 dicCredenciales = {"Usuario": "Prueba", "Contrasena": "1234568"}
@@ -944,7 +947,151 @@ def Eliminar_Pago(id: str) -> str:
 ##      SERVICIOS API - PRODUCTO     ##
 #######################################
 
+@app.route('/Servicios/Producto/Listar/<id>', methods=["GET"])
+def Listar_Producto_By_Id(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
 
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+        
+        aplicacion: cl_Producto_Aplicacion = cl_Producto_Aplicacion();
+        respuesta["Response"] = "Ok";
+        respuesta["Entidades"] = aplicacion.Listar(id);
+        return flask.jsonify(respuesta);
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+    
+@app.route('/Servicios/Producto/Listar', methods=["POST"])
+def Listar_Producto() -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        aplicacion: cl_Producto_Aplicacion = cl_Producto_Aplicacion();
+        respuesta["Response"] = "Ok";
+        respuesta["Entidades"] = aplicacion.Listar(None);
+        return flask.jsonify(respuesta);
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+
+@app.route('/Servicios/Producto/Insertar', methods=["POST"])
+def Insertar_Producto() -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        datos = flask.request.get_json();
+        
+        aplicacion: cl_Producto_Aplicacion = cl_Producto_Aplicacion();
+        return flask.jsonify(aplicacion.Insertar(datos));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+    
+@app.route('/Servicios/Producto/Actualizar/<id>', methods=["PUT"])
+def Actualizar_Producto(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        datos = flask.request.get_json();
+        
+        datos["ProductoID"] = id
+        
+        aplicacion: cl_Producto_Aplicacion = cl_Producto_Aplicacion();
+        return flask.jsonify(aplicacion.Actualizar(datos));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+
+@app.route('/Servicios/Producto/Eliminar/<id>', methods=["DELETE"])
+def Eliminar_Producto(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+        
+        aplicacion: cl_Producto_Aplicacion = cl_Producto_Aplicacion();
+
+        return flask.jsonify(aplicacion.Eliminar(id));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
 
 #######################################
 ##   SERVICIOS API - PRODUCTO DESC   ##
@@ -1096,16 +1243,304 @@ def Eliminar_ProductoDescuento(id: str) -> str:
         respuesta["Error"] = str(ex)
         return flask.jsonify(respuesta), 500
 
-
 #######################################
 ##      SERVICIOS API - PROVEEDOR    ##
 #######################################
 
+@app.route('/Servicios/Proveedor/Listar/<id>', methods=["GET"])
+def Listar_Proveedor_By_Id(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
 
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+        
+        aplicacion: cl_Proveedor_Aplicacion = cl_Proveedor_Aplicacion();
+        respuesta["Response"] = "Ok";
+        respuesta["Entidades"] = aplicacion.Listar(id);
+        return flask.jsonify(respuesta);
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+    
+@app.route('/Servicios/Proveedor/Listar', methods=["POST"])
+def Listar_Proveedor() -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        aplicacion: cl_Proveedor_Aplicacion = cl_Proveedor_Aplicacion();
+        respuesta["Response"] = "Ok";
+        respuesta["Entidades"] = aplicacion.Listar(None);
+        return flask.jsonify(respuesta);
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+
+@app.route('/Servicios/Proveedor/Insertar', methods=["POST"])
+def Insertar_Proveedor() -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        datos = flask.request.get_json();
+        
+        aplicacion: cl_Proveedor_Aplicacion = cl_Proveedor_Aplicacion();
+        return flask.jsonify(aplicacion.Insertar(datos));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+
+@app.route('/Servicios/Proveedor/Actualizar/<id>', methods=["PUT"])
+def Actualizar_Proveedor(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        datos = flask.request.get_json();
+        
+        datos["ProveedorID"] = id
+        
+        aplicacion: cl_Proveedor_Aplicacion = cl_Proveedor_Aplicacion();
+        return flask.jsonify(aplicacion.Actualizar(datos));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+
+@app.route('/Servicios/Proveedor/Eliminar/<id>', methods=["DELETE"])
+def Eliminar_Proveedor(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+        
+        aplicacion: cl_Proveedor_Aplicacion = cl_Proveedor_Aplicacion();
+
+        return flask.jsonify(aplicacion.Eliminar(id));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
 
 #######################################
 ##       SERVICIOS API - VENTA       ##
 #######################################
 
+@app.route('/Servicios/Venta/Listar/<id>', methods=["GET"])
+def Listar_Venta_By_Id(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+        
+        aplicacion: cl_Venta_Aplicacion = cl_Venta_Aplicacion();
+        respuesta["Response"] = "Ok";
+        respuesta["Entidades"] = aplicacion.Listar(id);
+        return flask.jsonify(respuesta);
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+
+@app.route('/Servicios/Venta/Listar', methods=["POST"])
+def Listar_Venta() -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        aplicacion: cl_Venta_Aplicacion = cl_Venta_Aplicacion();
+        respuesta["Response"] = "Ok";
+        respuesta["Entidades"] = aplicacion.Listar(None);
+        return flask.jsonify(respuesta);
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+
+@app.route('/Servicios/Venta/Insertar', methods=["POST"])
+def Insertar_Venta() -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        datos = flask.request.get_json();
+        
+        aplicacion: cl_Venta_Aplicacion = cl_Venta_Aplicacion();
+        return flask.jsonify(aplicacion.Insertar(datos));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+
+@app.route('/Servicios/Venta/Actualizar/<id>', methods=["PUT"])
+def Actualizar_Venta(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+
+        datos = flask.request.get_json();
+        
+        datos["VentaID"] = id
+        
+        aplicacion: cl_Venta_Aplicacion = cl_Venta_Aplicacion();
+        return flask.jsonify(aplicacion.Actualizar(datos));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
+
+@app.route('/Servicios/Venta/Eliminar/<id>', methods=["DELETE"])
+def Eliminar_Venta(id: str) -> str:
+    respuesta = {}
+    try:
+        # Obtener el token desde el encabezado
+        token = flask.request.headers.get("Token")
+
+        # Validar que el token esté presente
+        if not token:
+            respuesta["Error"] = 'lbNoAutenticacion'
+            return (flask.jsonify(respuesta), 401)
+
+        #Decodificar Token
+        user_deco = jwt.decode(token, key, algorithms=["HS256"])
+        
+        #Validar Usuario y Constraseña
+        if user_deco["Usuario"] != dicCredenciales["Usuario"] or user_deco["Contrasena"] != dicCredenciales["Contrasena"]:
+            respuesta["Error"] = 'Token Invalido';
+            return (flask.jsonify(respuesta), 401);
+        
+        aplicacion: cl_Venta_Aplicacion = cl_Venta_Aplicacion();
+
+        return flask.jsonify(aplicacion.Eliminar(id));
+
+    except Exception as ex:
+        respuesta["Error"] = str(ex)
+        return flask.jsonify(respuesta), 500
 
 app.run('localhost', 4040);

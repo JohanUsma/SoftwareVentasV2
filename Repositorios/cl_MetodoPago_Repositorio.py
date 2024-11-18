@@ -21,7 +21,7 @@ class cl_MetodoPago_Repositorio:
             respuesta: dict = { };
             contador = 0;
             for elemento in cursor:
-                #LLENAR LISTA DE MetodoPago
+                
                 metodoPago: cl_MetodoPago = cl_MetodoPago();
                 metodoPago.SetMetodoPagoID(elemento[0]);
                 metodoPago.SetNombre(elemento[1]);

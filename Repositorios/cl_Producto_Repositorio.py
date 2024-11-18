@@ -1,6 +1,5 @@
 import pyodbc;
 from Utilidades.cl_Database import cl_Database; 
-from Nucleo.cl_ProductoDescuento import cl_ProductoDescuento;
 from Nucleo.cl_Producto import cl_Producto;
 
 class cl_Producto_Repositorio:
