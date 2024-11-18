@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "d2698b7c-612f-463f-9e5f-4ceff5f994d9",
+		"_postman_id": "ddf2949f-67c8-431a-9f63-88f5b5e8b300",
 		"name": "SoftwareVentas2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38703906"
+		"_exporter_id": "38703906",
+		"_collection_link": "https://software-de-ventas.postman.co/workspace/SOFTWARE-DE-VENTAS-Workspace~1462f407-875d-465e-93f2-be96dc101d98/collection/39789707-ddf2949f-67c8-431a-9f63-88f5b5e8b300?action=share&source=collection_link&creator=38703906"
 	},
 	"item": [
 		{
@@ -205,7 +206,7 @@
 			"name": "Descuentos",
 			"item": [
 				{
-					"name": "Listar_Cliente_by_Id",
+					"name": "Listar_Descuento_By_Id",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -237,7 +238,7 @@
 					"response": []
 				},
 				{
-					"name": "Listar_Clientes",
+					"name": "Listar_Descuento",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -262,7 +263,7 @@
 					"response": []
 				},
 				{
-					"name": "Insertar_Cliente",
+					"name": "Insertar_Descuento",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -296,7 +297,7 @@
 					"response": []
 				},
 				{
-					"name": "Actualizar_Cliente",
+					"name": "Actualizar_Descuento",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -331,7 +332,1311 @@
 					"response": []
 				},
 				{
-					"name": "Eliminar_Cliente",
+					"name": "Eliminar_Descuento",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DetallesVentas",
+			"item": [
+				{
+					"name": "Listar_DetallesVenta_by_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/DetallesVenta/Listar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"DetallesVenta",
+								"Listar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_DetallesVenta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/DetallesVenta/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"DetallesVenta",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_DetallesVenta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"VentaID\": 3,\r\n    \"ProductoID\": 5,\r\n    \"Cantidad\": 4,\r\n    \"PrecioUnitario\": 4500.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/DetallesVenta/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"DetallesVenta",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_DetallesVenta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"VentaID\": 7,\r\n    \"ProductoID\": 1,\r\n    \"Cantidad\": 6,\r\n    \"PrecioUnitario\": 4700.90\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/DetallesVenta/Actualizar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"DetallesVenta",
+								"Actualizar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_DetallesVenta",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/DetallesVenta/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"DetallesVenta",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Empleado",
+			"item": [
+				{
+					"name": "Listar_Empleado_By_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Listar/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Listar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_Empleado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_Empleado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Prueba_API\",\r\n    \"Apellido\" : \"Insertar\",\r\n    \"Correo\" : \"Prueba_API@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 18B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_Empleado",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Ana Isabel\",\r\n    \"Apellido\" : \"Gómez Perez\",\r\n    \"Correo\" : \"anaisabelg@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 2 #45-70\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Actualizar/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Actualizar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_Empleado",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MetodoPago",
+			"item": [
+				{
+					"name": "Listar_MetodoPago_by_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/MetodoPago/Listar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"MetodoPago",
+								"Listar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_MetodoPago",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/MetodoPago/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"MetodoPago",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_MetodoPago",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"VentaID\": 3,\r\n    \"ProductoID\": 5,\r\n    \"Cantidad\": 4,\r\n    \"PrecioUnitario\": 4500.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/MetodoPago/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"MetodoPago",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_MetodoPago",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"VentaID\": 7,\r\n    \"ProductoID\": 1,\r\n    \"Cantidad\": 6,\r\n    \"PrecioUnitario\": 4700.90\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/MetodoPago/Actualizar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"MetodoPago",
+								"Actualizar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_MetodoPago",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/MetodoPago/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"MetodoPago",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pago",
+			"item": [
+				{
+					"name": "Listar_Pago_by_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Pago/Listar/11",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Pago",
+								"Listar",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_Pago",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Pago/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Pago",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_Pago",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"VentaID\": 9,\r\n    \"MetodoPagoID\": 7,\r\n    \"Monto\": 1599.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Pago/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Pago",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_Pago",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"VentaID\": 8,\r\n    \"MetodoPagoID\": 6,\r\n    \"Monto\": 1565.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Pago/Actualizar/13",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Pago",
+								"Actualizar",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_Pago",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Pago/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Pago",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producto",
+			"item": [
+				{
+					"name": "Listar_Producto_by_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Producto/Listar/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Producto",
+								"Listar",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_Producto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Producto/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Producto",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_Producto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"VentaID\": 3,\r\n    \"ProductoID\": 5,\r\n    \"Cantidad\": 4,\r\n    \"PrecioUnitario\": 4500.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Producto/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Producto",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_Producto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ProductoID\": 3,\r\n    \"DescuentoID\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Producto/Actualizar/11",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Producto",
+								"Actualizar",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_Producto",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Producto/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Producto",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ProductoDescuento",
+			"item": [
+				{
+					"name": "Listar_ProductoDescuento_by_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/ProductoDescuento/Listar/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"ProductoDescuento",
+								"Listar",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_ProductoDescuento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/ProductoDescuento/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"ProductoDescuento",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_ProductoDescuento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"VentaID\": 3,\r\n    \"ProductoID\": 5,\r\n    \"Cantidad\": 4,\r\n    \"PrecioUnitario\": 4500.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/ProductoDescuento/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"ProductoDescuento",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_ProductoDescuento",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ProductoID\": 3,\r\n    \"DescuentoID\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/ProductoDescuento/Actualizar/11",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"ProductoDescuento",
+								"Actualizar",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_ProductoDescuento",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/ProductoDescuento/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"ProductoDescuento",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proveedor",
+			"item": [
+				{
+					"name": "Listar_Proveedor_By_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Proveedor/Listar/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Proveedor",
+								"Listar",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_Proveedor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Proveedor/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Proveedor",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_Proveedor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Prueba_API\",\r\n    \"Apellido\" : \"Insertar\",\r\n    \"Correo\" : \"Prueba_API@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 18B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Proveedor/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Proveedor",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_Proveedor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Ana Isabel\",\r\n    \"Apellido\" : \"Gómez Perez\",\r\n    \"Correo\" : \"anaisabelg@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 2 #45-70\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Proveedor/Actualizar/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Proveedor",
+								"Actualizar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_Proveedor",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Proveedor/Eliminar/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Proveedor",
+								"Eliminar",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Venta",
+			"item": [
+				{
+					"name": "Listar_Venta_By_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token_otro_usuario}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Listar/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Listar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar_Venta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Listar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar_Venta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Prueba_API\",\r\n    \"Apellido\" : \"Insertar\",\r\n    \"Correo\" : \"Prueba_API@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 18B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar_Venta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\" : \"Ana Isabel\",\r\n    \"Apellido\" : \"Gómez Perez\",\r\n    \"Correo\" : \"anaisabelg@gmail.com\",\r\n    \"Telefono\" : \"3208543697\",\r\n    \"Direccion\" : \"Calle 2 #45-70\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Servicios/Cliente/Actualizar/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Servicios",
+								"Cliente",
+								"Actualizar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar_Empleado",
 					"request": {
 						"method": "DELETE",
 						"header": [
